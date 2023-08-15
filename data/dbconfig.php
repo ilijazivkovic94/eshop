@@ -1,8 +1,8 @@
 <?php
 if (!defined('_GNUBOARD_')) exit;
 define('G5_MYSQL_HOST', 'localhost');
-define('G5_MYSQL_USER', 'root');
-define('G5_MYSQL_PASSWORD', '');
+define('G5_MYSQL_USER', 'admin');
+define('G5_MYSQL_PASSWORD', 'Myproject123!');
 define('G5_MYSQL_DB', 'eshop_proj_db');
 define('G5_MYSQL_SET_MODE', true);
 
