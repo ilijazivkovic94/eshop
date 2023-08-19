@@ -17,20 +17,13 @@ if (!defined('_EYOOM_')) exit;
 <?php /* ---------- 상품 정보 시작 ---------- */ ?>
 <section id="sit_inf">
     <h2 class="h-hidden">상품 정보</h2>
-    <?php echo $shop->pg_anchor('sit_inf'); ?>
+<!--    --><?php //echo $shop->pg_anchor('sit_inf'); ?>
 
     <?php if ($it['it_basic']) { // 상품 기본설명 ?>
     <h3 class="h-hidden">상품 기본설명</h3>
     <blockquote class="hero">
         <p><?php echo $it['it_basic']; ?></p>
     </blockquote>
-    <?php } ?>
-
-    <?php if ($it['it_explan']) { // 상품 상세설명 ?>
-    <h3 class="h-hidden">상품 상세설명</h3>
-    <div id="sit_inf_explan">
-        <?php echo conv_content($it['it_explan'], 1); ?>
-    </div>
     <?php } ?>
 
     <?php if ($it['it_info_use'] == 1) { ?>
@@ -59,43 +52,50 @@ if (!defined('_EYOOM_')) exit;
     <?php } ?>
     <?php } ?>
 
+    <?php if ($it['it_explan']) { // 상품 상세설명 ?>
+			<h3 class="h-hidden">상품 상세설명</h3>
+			<div id="sit_inf_explan">
+          <?php echo conv_content($it['it_explan'], 1); ?>
+			</div>
+    <?php } ?>
 </section>
 <?php /* ---------- 상품 정보 끝 ---------- */ ?>
 
-<?php /* ---------- 사용후기 시작 ---------- */ ?>
-<section id="sit_use">
-    <h2 class="h-hidden">사용후기</h2>
-    <?php echo $shop->pg_anchor('sit_use'); ?>
-
-    <div id="itemuse"><?php include_once($skin_dir.'/itemuse.php'); ?></div>
-</section>
-<?php /* ---------- 사용후기 끝 ---------- */ ?>
-
-<?php /* ---------- 상품문의 시작 ---------- */ ?>
-<section id="sit_qa">
-    <h2 class="h-hidden">상품문의</h2>
-    <?php echo $shop->pg_anchor('sit_qa'); ?>
-
-    <div id="itemqa"><?php include_once($skin_dir.'/itemqa.php'); ?></div>
-</section>
-<?php /* ---------- 상품문의 끝 ---------- */ ?>
-
-<?php if ($default['de_baesong_content']) { // 배송정보 내용이 있다면 ?>
-<?php /* ---------- 배송정보 시작 ---------- */ ?>
-<section id="sit_dvr">
-    <h2 class="h-hidden">배송정보</h2>
-    <?php echo $shop->pg_anchor('sit_dvr'); ?>
-
-    <?php echo conv_content($default['de_baesong_content'], 1); ?>
-</section>
-<?php /* ---------- 배송정보 끝 ---------- */ ?>
-<?php } ?>
+<?php ///* ---------- 사용후기 ~ 배송정보기능들을 요구사항에따라 지움 ---------- */ ?>
+<?php ///* ---------- 사용후기 시작 ---------- */ ?>
+<!--<section id="sit_use">-->
+<!--    <h2 class="h-hidden">사용후기</h2>-->
+<!--    --><?php //echo $shop->pg_anchor('sit_use'); ?>
+<!---->
+<!--    <div id="itemuse">--><?php //include_once($skin_dir.'/itemuse.php'); ?><!--</div>-->
+<!--</section>-->
+<?php ///* ---------- 사용후기 끝 ---------- */ ?>
+<!---->
+<?php ///* ---------- 상품문의 시작 ---------- */ ?>
+<!--<section id="sit_qa">-->
+<!--    <h2 class="h-hidden">상품문의</h2>-->
+<!--    --><?php //echo $shop->pg_anchor('sit_qa'); ?>
+<!---->
+<!--    <div id="itemqa">--><?php //include_once($skin_dir.'/itemqa.php'); ?><!--</div>-->
+<!--</section>-->
+<?php ///* ---------- 상품문의 끝 ---------- */ ?>
+<!---->
+<?php //if ($default['de_baesong_content']) { // 배송정보 내용이 있다면 ?>
+<?php ///* ---------- 배송정보 시작 ---------- */ ?>
+<!--<section id="sit_dvr">-->
+<!--    <h2 class="h-hidden">배송정보</h2>-->
+<!--    --><?php //echo $shop->pg_anchor('sit_dvr'); ?>
+<!---->
+<!--    --><?php //echo conv_content($default['de_baesong_content'], 1); ?>
+<!--</section>-->
+<?php ///* ---------- 배송정보 끝 ---------- */ ?>
+<?php //} ?>
 
 <?php if ($default['de_change_content']) { // 교환/반품 내용이 있다면 ?>
 <?php /* ---------- 교환/반품 시작 ---------- */ ?>
 <section id="sit_ex">
     <h2 class="h-hidden">교환/반품</h2>
-    <?php echo $shop->pg_anchor('sit_ex'); ?>
+		<?php //echo $shop->pg_anchor('sit_ex'); ?>
 
     <?php echo conv_content($default['de_change_content'], 1); ?>
 </section>
