@@ -277,15 +277,17 @@ $g5_page_path = '<li class="breadcrumb-item"><a href="'.correct_goto_url(G5_ADMI
                         <th>닉네임</th>
                         <?php if (!$wmode) { ?>
                         <th class="width-80px">권한</th>
+                        <th>추천인</th>
                         <th>이윰레벨</th>
                         <th>그누<?php echo $levelset['gnu_name']; ?></th>
-                        <th>이윰<?php echo $levelset['eyoom_name']; ?></th>
-                        <th>본인확인</th>
+												<!--<th>이윰--><?php //echo $levelset['eyoom_name']; ?><!--</th>-->
+												<!-- <th>본인확인</th> -->
                         <th>메일인증</th>
                         <th>정보공개</th>
                         <th>메일수신</th>
                         <th>SMS수신</th>
-                        <th>성인인증</th>
+												<!--<th>성인인증</th>-->
+												<th>전화번호</th>
                         <th>접근차단</th>
                         <th>상태</th>
                         <th>가입일</th>
@@ -327,16 +329,21 @@ $g5_page_path = '<li class="breadcrumb-item"><a href="'.correct_goto_url(G5_ADMI
                         <td>
                             <label class="select width-60px"><?php echo $list[$i]['mb_level_select']; ?><i></i></label><input type="hidden" name="mb_prev_level[<?php echo $i; ?>]" value="<?php echo $list[$i]['mb_level']; ?>">
                         </td>
+												<td>
+                            <?php if (!empty($list[$i]['mb_recommend'])): ?>
+															<a href="<?php echo G5_ADMIN_URL; ?>/?dir=member&pid=member_form&mb_id=<?php echo $list[$i]['mb_recommend']; ?>&w=u&amp;wmode=1" onclick="eb_modal(this.href); return false;"><?php echo get_text($list[$i]['mb_recommend']); ?></a>
+                            <?php endif; ?>
+												</td>
                         <td>
                             <?php echo $list[$i]['level']; ?> 레벨<input type="hidden" name="level[<?php echo $i; ?>]" value="<?php echo $list[$i]['level']; ?>">
                         </td>
                         <td>
                             <a href="<?php echo G5_ADMIN_URL; ?>/?dir=member&amp;pid=point_list&amp;sfl=mb_id&amp;stx=<?php echo $list[$i]['mb_id']; ?>"><?php echo number_format($list[$i]['mb_point']); ?></a>
                         </td>
-                        <td>
-                            <?php echo number_format($list[$i]['level_point']); ?><input type="hidden" name="level_point[<?php echo $i; ?>]" value="<?php echo $list[$i]['level_point']; ?>">
-                        </td>
-                        <td class="text-center"><?php echo $list[$i]['mb_certify_case']; ?></td>
+												<!-- <td> 이윰경험치-->
+												<?php //echo number_format($list[$i]['level_point']); ?><!--<input type="hidden" name="level_point[--><?php //echo $i; ?><!--]" value="--><?php //echo $list[$i]['level_point']; ?><!--">-->
+												<!--</td>-->
+												<!-- 본인확인 <td class="text-center">--><?php //echo $list[$i]['mb_certify_case']; ?><!--</td>-->
                         <td class="text-center">
                             <span class="<?php if ($list[$i]['email_certify'] == 'Yes') { ?>text-teal<?php } else if ($list[$i]['email_certify'] == 'No') { ?>text-gray<?php } ?>"><?php echo $list[$i]['email_certify']; ?></span>
                         </td>
@@ -349,9 +356,14 @@ $g5_page_path = '<li class="breadcrumb-item"><a href="'.correct_goto_url(G5_ADMI
                         <td>
                             <label class="checkbox adm-table-check"><input type="checkbox" name="mb_sms[<?php echo $i; ?>]" <?php if ($list[$i]['mb_sms']) { ?>checked<?php } ?> value="1"><i></i></label>
                         </td>
-                        <td>
-                            <label class="checkbox adm-table-check"><input type="checkbox" name="mb_adult[<?php echo $i; ?>]" <?php if ($list[$i]['mb_adult']) { ?>checked<?php } ?> value="1"><i></i></label><input type="hidden" name="mb_certify[<?php echo $i; ?>]" value="<?php echo $list[$i]['mb_certify']; ?>">
-                        </td>
+												<td>
+                            <?php echo get_text($list[$i]['mb_tel']); ?>
+												</td>
+												<!-- 성인인증
+												<td>
+													<label class="checkbox adm-table-check"><input type="checkbox" name="mb_adult[<?php echo $i; ?>]" <?php if ($list[$i]['mb_adult']) { ?>checked<?php } ?> value="1"><i></i></label><input type="hidden" name="mb_certify[<?php echo $i; ?>]" value="<?php echo $list[$i]['mb_certify']; ?>">
+												</td>
+												-->
                         <td>
                             <?php if (empty($list[$i]['mb_leave_date'])) { ?><label class="checkbox adm-table-check"><input type="checkbox" name="mb_intercept_date[<?php echo $i; ?>]" <?php if ($list[$i]['mb_intercept_date']) { ?>checked<?php } ?> value="<?php echo $list[$i]['intercept_date']; ?>"><i></i></label><?php } ?>
                         </td>
