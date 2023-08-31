@@ -79,6 +79,9 @@ $item_view = 'zoom';
                                     <a href="<?php echo G5_SHOP_URL; ?>/cart.php">장바구니</a>
                                     <?php /* <a href="<?php echo G5_SHOP_URL; ?>/wishlist.php">위시리스트</a> */ ?>
                                     <a href="<?php echo G5_SHOP_URL; ?>/friends.php">친구목록</a>
+    																<?php if ($is_admin) {  ?>
+																			<a href="<?php echo G5_ADMIN_URL; ?>?dir=member&pid=system_money_list">회원충환전</a>
+                                    <?php } ?>
                                     <a href="<?php echo G5_SHOP_URL; ?>/orderinquiry.php">주문/배송조회</a>
                                     <a href="<?php echo G5_SHOP_URL; ?>/couponzone.php">쿠폰존</a>
                                     <a href="<?php echo G5_SHOP_URL; ?>/personalpay.php">개인결제</a>

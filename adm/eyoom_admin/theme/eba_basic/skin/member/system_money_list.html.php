@@ -9,7 +9,7 @@ if (!defined('_EYOOM_IS_ADMIN_')) exit;
  * 페이지 경로 설정
  */
 $fm_pid = 'point_list';
-$g5_title = '시스템머니관리';
+$g5_title = '보유머니관리';
 $g5_page_path = '<li class="breadcrumb-item"><a href="'.correct_goto_url(G5_ADMIN_URL).'">Home</a></li><li class="breadcrumb-item active" aria-current="page">회원관리</li><li class="breadcrumb-item active" aria-current="page">'.$g5_title.'</li>';
 ?>
 

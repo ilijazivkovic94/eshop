@@ -64,8 +64,8 @@ if ($member['mb_id'] == $config['cf_admin'] || in_array('member', $mg_auth)) {
             array('200810', '접속자검색', G5_ADMIN_URL . '/visit_search.php', 'mb_search', 1),
             array('200820', '접속자로그삭제', G5_ADMIN_URL . '/visit_delete.php', 'mb_delete', 1),
             array('200710', '이윰레벨설정', G5_ADMIN_URL.'/level_config.php', 'eyb_level'),
+            array('200201', '보유머니관리', G5_ADMIN_URL . '/system_money_list.php', 'mb_system_money'),
             array('200200', '포인트관리', G5_ADMIN_URL . '/point_list.php', 'mb_point'),
-            array('200201', '시스템머니관리', G5_ADMIN_URL . '/system_money_list.php', 'mb_system_money'),
             array('200990', '포인트 압축하기', G5_ADMIN_URL.'/point_compress.php', 'mb_point_compress'),
             array('200900', '투표관리', G5_ADMIN_URL . '/poll_list.php', 'mb_poll')
         );
