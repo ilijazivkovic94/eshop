@@ -97,6 +97,19 @@ if ($w == '') {
     $mb['mb_8'] = get_text($mb['mb_8']);
     $mb['mb_9'] = get_text($mb['mb_9']);
     $mb['mb_10'] = get_text($mb['mb_10']);
+
+    /* 사용자가 추천한 회원들 */
+    $sql2 = "SELECT
+        mb_id
+        FROM {$g5['member_table']}
+        WHERE mb_recommend = '{$mb["mb_id"]}' AND mb_level >= '2'
+        ORDER BY mb_datetime DESC";
+    $result = sql_query($sql2);
+    $list = array();
+    while ($row = sql_fetch_array($result)) {
+        $list[] = $row;
+    }
+
 } else {
     alert('제대로 된 값이 넘어오지 않았습니다.');
 }

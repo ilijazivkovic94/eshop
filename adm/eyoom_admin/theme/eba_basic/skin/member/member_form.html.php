@@ -451,13 +451,31 @@ $frm_submit .= $frm_eba_submit;
         <?php } ?>
         <?php if ($config['cf_use_recommend']) { // 추천인 사용 ?>
         <div class="adm-form-tr">
-            <div class="adm-form-td td-l">
-                <label class="label">추천인</label>
-            </div>
-            <div class="adm-form-td td-r">
-                <?php echo ($mb['mb_recommend'] ? get_text($mb['mb_recommend']) : '없음'); // 081022 : CSRF 보안 결함으로 인한 코드 수정 ?><i></i>
-            </div>
-        </div>
+					<div class="adm-form-td td-l">
+						<label class="label">추천인</label>
+					</div>
+					<div class="adm-form-td td-r">
+              <?php if ($mb['mb_recommend']) : ?>
+								<a href="<?php echo G5_ADMIN_URL; ?>/?dir=member&amp;pid=member_form&amp;mb_id=<?php echo $mb['mb_recommend']; ?>&amp;w=u<?php if ($qstr) { ?>&amp;<?php echo $qstr; ?><?php } ?>" target="_blank"><?php echo get_text($mb['mb_recommend']); ?></a><i></i>
+              <?php else : ?>
+								없음
+              <?php endif; ?>
+					</div>
+				</div>
+				<div class="adm-form-tr">
+					<div class="adm-form-td td-l">
+						<label class="label">추천한 회원들</label>
+					</div>
+					<div class="adm-form-td td-r">
+              <?php if (empty($list)) : ?>
+								없음
+              <?php else : ?>
+                  <?php $mb_ids = array_column($list, 'mb_id'); ?>
+                  <?php $mb_links = array_map(function ($mb_id) { return '<a href="' . G5_ADMIN_URL . '/?dir=member&amp;pid=member_form&amp;mb_id=' . $mb_id . '&amp;w=u' . ($qstr ? '&amp;' . $qstr : '') . '" target="_blank">' . $mb_id . '</a>'; }, $mb_ids); ?>
+                  <?php echo implode(', ', $mb_links); ?>
+              <?php endif; ?>
+					</div>
+				</div>
         <?php } ?>
         <div class="adm-form-tr-wrap">
             <div class="adm-form-tr tr-l">
