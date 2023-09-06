@@ -15,7 +15,7 @@ $logo = 'image';
 /**
  * 메뉴바 전체 메뉴 출력 : 'yes' || 'no'
  */
-$is_megamenu = 'yes';
+$is_megamenu = 'no';
 
 /**
  * 상품 이미지 미리보기 종류 : 'zoom' || 'slider'
