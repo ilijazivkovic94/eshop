@@ -274,18 +274,21 @@ class item_list
                 $where[] = " it_type{$this->type} = '1' ";
             }
 
-            if ($this->ca_id || $this->ca_id2 || $this->ca_id3) {
+            /* Updated query for all products showing */
+            if (($this->ca_id !== "all") || ($this->ca_id2 !== "all") || ($this->ca_id3 !== "all")) {
                 $where_ca_id = array();
-                if ($this->ca_id) {
+                if ($this->ca_id && $this->ca_id !== "all") {
                     $where_ca_id[] = " ca_id like '{$this->ca_id}%' ";
                 }
-                if ($this->ca_id2) {
+                if ($this->ca_id2 && $this->ca_id2 !== "all") {
                     $where_ca_id[] = " ca_id2 like '{$this->ca_id2}%' ";
                 }
-                if ($this->ca_id3) {
+                if ($this->ca_id3 && $this->ca_id3 !== "all") {
                     $where_ca_id[] = " ca_id3 like '{$this->ca_id3}%' ";
                 }
-                $where[] = " ( " . implode(" or ", $where_ca_id) . " ) ";
+                if (!empty($where_ca_id)) {
+                    $where[] = " ( " . implode(" or ", $where_ca_id) . " ) ";
+                }
             }
 
             if ($br_cd) {

@@ -45,7 +45,7 @@ class shop extends eyoom
      * 상품리스트 화면에서 상단 카테고리 네비
      */
     public function get_navigation($ca_id = '') {
-        if ($ca_id) {
+        if ($ca_id && $ca_id !== 'all') {
             $navigation = $bar = "";
             $len = strlen($ca_id) / 2;
             for ($i=1; $i<=$len; $i++) {

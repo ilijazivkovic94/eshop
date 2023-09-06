@@ -5,31 +5,47 @@
 if (!defined('_EYOOM_')) exit;
 
 // 상품 리스트에서 다른 필드로 정렬을 하려면 아래의 배열 코드에서 해당 필드를 추가하세요.
-if( isset($sort) && ! in_array($sort, array('it_name', 'it_sum_qty', 'it_price', 'it_use_avg', 'it_use_cnt', 'it_update_time')) ){
-    $sort='';
+if (isset($sort) && !in_array($sort, ['it_name', 'it_sum_qty', 'it_price', 'it_use_avg', 'it_use_cnt', 'it_update_time'])) {
+    $sort = '';
 }
 
 /**
  * 분류 체크
+ *
+ * 모든 상품(all)이면 사용가능한 첫 카테고리의 자료를 얻는다.
  */
-$sql = " select * from {$g5['g5_shop_category_table']} where ca_id = '$ca_id' and ca_use = '1'  ";
+$sql = '';
+if ($ca_id === 'all') {
+    $sql = "SELECT * FROM {$g5['g5_shop_category_table']} WHERE ca_use = '1' LIMIT 1";
+} else {
+    $sql = "SELECT * FROM {$g5['g5_shop_category_table']} WHERE ca_id = '$ca_id' AND ca_use = '1'";
+}
+
 $ca = sql_fetch($sql);
 if (!$ca['ca_id'])
     alert('등록된 분류가 없습니다.');
 
 /**
+ * 모든 상품(all)이면 카테고리 이름과 아이디 설정.
+ */
+if ($ca_id === 'all') {
+    $ca['ca_id'] = 'all';
+    $ca['ca_name'] = '모든';
+}
+
+/**
  * 본인인증, 성인인증체크
  */
-if(!$is_admin && $config['cf_cert_use']) {
+if (!$is_admin && $config['cf_cert_use']) {
     $msg = shop_member_cert_check($ca_id, 'list');
-    if($msg)
+    if ($msg)
         alert($msg, G5_SHOP_URL);
 }
 
 /**
  * 타이틀
  */
-$g5['title'] = $ca['ca_name'].' 상품리스트';
+$g5['title'] = $ca['ca_name'] . ' 상품리스트';
 
 /**
  * 상단 디자인 출력
@@ -37,50 +53,50 @@ $g5['title'] = $ca['ca_name'].' 상품리스트';
 if ($ca['ca_include_head'] && is_include_path_check($ca['ca_include_head']))
     @include_once($ca['ca_include_head']);
 else
-    include_once(G5_SHOP_PATH.'/_head.php');
+    include_once(G5_SHOP_PATH . '/_head.php');
 
 /**
  * 스킨 경로
  */
-$skin_dir = EYOOM_CORE_PATH.'/'. G5_SHOP_DIR;
+$skin_dir = EYOOM_CORE_PATH . '/' . G5_SHOP_DIR;
 
 /**
  * 네비게이션 스킨
  */
-$nav_skin = $skin_dir.'/navigation.skin.php';
-if(!is_file($nav_skin)) $nav_skin = G5_SHOP_SKIN_PATH.'/navigation.skin.php';
+$nav_skin = $skin_dir . '/navigation.skin.php';
+if (!is_file($nav_skin)) $nav_skin = G5_SHOP_SKIN_PATH . '/navigation.skin.php';
 
 /**
  * 카테고리 스킨
  */
-$cate_skin = $skin_dir.'/listcategory.skin.php';
-if(!is_file($cate_skin)) $cate_skin = G5_SHOP_SKIN_PATH.'/listcategory.skin.php';
+$cate_skin = $skin_dir . '/listcategory.skin.php';
+if (!is_file($cate_skin)) $cate_skin = G5_SHOP_SKIN_PATH . '/listcategory.skin.php';
 
 /**
  * 상품 출력순서가 있다면
  */
 if ($sort != "")
-    $order_by = $sort.' '.$sortodr.' , it_order, it_id desc';
+    $order_by = $sort . ' ' . $sortodr . ' , it_order, it_id desc';
 else
     $order_by = 'it_order, it_id desc';
 
 /**
  * 리스트 스킨
  */
-$skin_file = is_include_path_check($skin_dir.'/'.$ca['ca_skin']) ? $skin_dir.'/'.$ca['ca_skin'] : $skin_dir.'/list.10.skin.php';
+$skin_file = is_include_path_check($skin_dir . '/' . $ca['ca_skin']) ? $skin_dir . '/' . $ca['ca_skin'] : $skin_dir . '/list.10.skin.php';
 
 if (file_exists($skin_file)) {
     /**
      * 정렬 스킨
      */
-    $sort_skin = $skin_dir.'/list.sort.skin.php';
-    if(!is_file($sort_skin)) $sort_skin = G5_SHOP_SKIN_PATH.'/list.sort.skin.php';
+    $sort_skin = $skin_dir . '/list.sort.skin.php';
+    if (!is_file($sort_skin)) $sort_skin = G5_SHOP_SKIN_PATH . '/list.sort.skin.php';
 
     /**
      * 상품보기 타입 변경
      */
-    $sub_skin = $skin_dir.'/list.sub.skin.php';
-    if(!is_file($sub_skin)) $sub_skin = G5_SHOP_SKIN_PATH.'/list.sub.skin.php';
+    $sub_skin = $skin_dir . '/list.sub.skin.php';
+    if (!is_file($sub_skin)) $sub_skin = G5_SHOP_SKIN_PATH . '/list.sub.skin.php';
 
     /**
      * 총몇개 = 한줄에 몇개 * 몇줄
@@ -125,20 +141,20 @@ if (file_exists($skin_file)) {
     /**
      * 전체 페이지 계산
      */
-    $total_page  = ceil($total_count / $items);
+    $total_page = ceil($total_count / $items);
 }
 
 /**
  * 페이징
  */
 //$qstr1 .= 'ca_id='.$ca_id;
-$qstr1 .='&amp;sort='.$sort.'&amp;sortodr='.$sortodr;
+$qstr1 .= '&amp;sort=' . $sort . '&amp;sortodr=' . $sortodr;
 $paging = $eb->set_paging('itemlist', $ca_id, $qstr1);
 
 /**
  * 이윰 테마파일 출력
  */
-include_once(EYOOM_THEME_SHOP_SKIN_PATH.'/list.skin.html.php');
+include_once(EYOOM_THEME_SHOP_SKIN_PATH . '/list.skin.html.php');
 
 /**
  * 하단 디자인 출력
@@ -146,6 +162,6 @@ include_once(EYOOM_THEME_SHOP_SKIN_PATH.'/list.skin.html.php');
 if ($ca['ca_include_tail'] && is_include_path_check($ca['ca_include_tail']))
     @include_once($ca['ca_include_tail']);
 else
-    include_once(G5_SHOP_PATH.'/_tail.php');
+    include_once(G5_SHOP_PATH . '/_tail.php');
 
 echo "\n<!-- {$ca['ca_skin']} -->\n";
