@@ -1021,6 +1021,45 @@ $frm_submit .= $frm_eba_submit;
                 <div class="adm-form-tr-wrap">
                     <div class="adm-form-tr tr-l">
                         <div class="adm-form-td td-l">
+                            <label for="cf_recommend_only_percent" class="label">추천인 이율 (추천인만 있을 경우)</label>
+                        </div>
+                        <div class="adm-form-td td-r">
+                            <label class="input max-width-250px">
+                                <i class="icon-append">%</i>
+                                <input type="text" name="cf_recommend_only_percent" id="cf_recommend_only_percent" value="<?php echo $config['cf_recommend_only_percent']; ?>" class="text-end">
+                            </label>
+                            <div class="note"><strong>Note:</strong>구매자에게 추천인만 있을 경우, ex: 추천인 이율 10%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="adm-form-tr-wrap">
+                    <div class="adm-form-tr tr-l">
+                        <div class="adm-form-td td-l">
+                            <label for="cf_recommend_percent" class="label">추천인 이율</label>
+                        </div>
+                        <div class="adm-form-td td-r">
+                            <label class="input max-width-250px">
+                                <i class="icon-append">%</i>
+                                <input type="text" name="cf_recommend_percent" id="cf_recommend_percent" value="<?php echo $config['cf_recommend_percent']; ?>" class="text-end">
+                            </label>
+                            <div class="note"><strong>Note:</strong>구매자에게 추천인과 부모추천인이(추천인의 추천인) 있을 경우, ex: 추천인 이율 7%, 부모추천인 이율 3%</div>
+                        </div>
+                    </div>
+                    <div class="adm-form-tr tr-r">
+                        <div class="adm-form-td td-l">
+                            <label for="cf_pa_recommend_percent" class="label">부모 추천인 이율</label>
+                        </div>
+                        <div class="adm-form-td td-r">
+                            <label class="input max-width-250px">
+                                <i class="icon-append">%</i>
+                                <input type="text" name="cf_pa_recommend_percent" id="cf_pa_recommend_percent" value="<?php echo $config['cf_pa_recommend_percent']; ?>" class="text-end">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="adm-form-tr-wrap">
+                    <div class="adm-form-tr tr-l">
+                        <div class="adm-form-td td-l">
                             <label for="cf_prohibit_id" class="label">아이디,닉네임 금지단어</label>
                         </div>
                         <div class="adm-form-td td-r">

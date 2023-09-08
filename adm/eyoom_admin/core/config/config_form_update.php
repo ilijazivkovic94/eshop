@@ -351,7 +351,10 @@ $sql = " update {$g5['config_table']}
                 cf_7 = '{$_POST['cf_7']}',
                 cf_8 = '{$_POST['cf_8']}',
                 cf_9 = '{$_POST['cf_9']}',
-                cf_10 = '{$_POST['cf_10']}' ";
+                cf_10 = '{$_POST['cf_10']}',
+                cf_recommend_percent = '{$_POST['cf_recommend_percent']}',
+                cf_pa_recommend_percent = '{$_POST['cf_pa_recommend_percent']}',
+                cf_recommend_only_percent = '{$_POST['cf_recommend_only_percent']}'";
 sql_query($sql);
 
 //sql_query(" OPTIMIZE TABLE `$g5[config_table]` ");
