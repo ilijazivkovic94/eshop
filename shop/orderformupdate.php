@@ -762,7 +762,11 @@ if($is_member) {
     }
 }
 
-// 구매자를 추천한 사람에게 시스템머니 적립하기. 2단계까지..
+/**
+ * 구매자를 추천한 사람에게 시스템머니 적립하기. 2단계까지..
+ *
+ * 친구에게 시스템머니 적립하기
+ */
 $friend_sql = "select * from g5_friends where mb_id='{$member['mb_id']}'";
 $friend_result = sql_query($friend_sql);
 $friend = sql_fetch_array($friend_result);
@@ -786,6 +790,56 @@ if ($friend && $friend['parent_mb_id']) {
             $system_money = $member_row['mb_system_money'] + ceil($tot_ct_price * $parent_friend['percentage'] / 100);
             $member_update_sql = "update g5_member SET mb_system_money = $system_money WHERE mb_id='{$member_row['mb_id']}'";
             sql_query($member_update_sql);
+        }
+    }
+}
+
+/**
+ *  추천인에게 시스템머니 적립하기
+ *  ex: 구매자에게 추천인이 있으면 추천인에게 상품가격의 10%. 구매자의 추천인에게도 추천인이 있는경우 추천인 7%, 부모 추천인 3%
+ */
+if ($config['cf_use_recommend']) { // check if recommend mode is enabled.
+    $referral_percent = $config['cf_recommend_only_percent'];
+    $parent_referral_percent = $config['cf_pa_recommend_percent'];
+
+    if ($member && $member['mb_recommend']) {
+        // Get referral
+        $referral_sql = "SELECT * FROM g5_member WHERE mb_id='{$member['mb_recommend']}'";
+        $referral_result = sql_query($referral_sql);
+        $referral = sql_fetch_array($referral_result);
+
+        if ($referral) {
+            // Calculate referral system money (default 10%)
+            $referral_percent = $config['cf_recommend_only_percent'];
+            $referral_system_money = ceil($tot_ct_price * $referral_percent / 100);
+
+            // Check if referral has their own referral
+            if ($referral['mb_recommend']) {
+                // Update referral percent and system money (7%)
+                $referral_percent = $config['cf_recommend_percent'];
+                $referral_system_money = ceil($tot_ct_price * $referral_percent / 100);
+
+                // Calculate and update system money for the parent referral (3%)
+                $parent_system_money = ceil($tot_ct_price * $parent_referral_percent / 100);
+                insert_system_money(
+                    $referral['mb_recommend'],
+                    $parent_system_money,
+                    "{$member['mb_id']}: 주문번호 {$od_id} 결제, {$referral['mb_id']}의 추천인",
+                    '@shop_order',
+                    $od_id,
+                    'add_parent_referral'
+                );
+            }
+
+            // Insert system money history of referral
+            insert_system_money(
+                $referral['mb_id'],
+                $referral_system_money,
+                "{$member['mb_id']}: 주문번호 {$od_id} 결제, 추천인",
+                '@shop_order',
+                $od_id,
+                'add_referral'
+            );
         }
     }
 }
