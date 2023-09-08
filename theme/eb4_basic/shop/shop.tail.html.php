@@ -67,20 +67,7 @@ if (!defined('_EYOOM_')) exit;
 					</div>
 				</div>
 				<?php } ?>
-				<span class="text-black"><?php echo $bizinfo['bi_company_name']; ?></span>
-				<span class="info-divider">|</span>
-				<span>대표 : <?php echo $bizinfo['bi_company_ceo']; ?></span>
-				<span class="info-divider">|</span>
-				<span>사업자등록번호 : <?php echo $bizinfo['bi_company_bizno']; ?></span>
-				<span class="info-divider">|</span>
-				<span>통신판매업번호 : <?php echo $bizinfo['bi_company_sellno']; ?></span>
-				<span class="info-divider">|</span>
-				<span>주소 : <?php echo $bizinfo['bi_company_zip']; ?> <?php echo $bizinfo['bi_company_addr1']; ?> <?php echo $bizinfo['bi_company_addr2']; ?> <?php echo $bizinfo['bi_company_addr3']; ?></span><br>
 				<span>E-mail : <a href="mailto:<?php echo $bizinfo['bi_cs_email']; ?>"><?php echo $bizinfo['bi_cs_email']; ?></a></span>
-				<span class="info-divider">|</span>
-				<span>T. <?php echo $bizinfo['bi_cs_tel1']; ?></span>
-				<span class="info-divider">|</span>
-				<span>F. <?php echo $bizinfo['bi_cs_fax']; ?></span>
 			</div>
 
 			<div class="footer-copyright">
