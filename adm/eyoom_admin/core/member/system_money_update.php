@@ -21,8 +21,15 @@ if (!$mb['mb_id']) {
     alert('존재하는 회원아이디가 아닙니다.', G5_ADMIN_URL.'/?dir=member&amp;pid=system_money_list&amp;'.$qstr);
 }
 
-if (($po_system_money < 0) && ($po_system_money * (-1) > $mb['mb_system_money'])) {
-    alert('머니를 깎는 경우 현재 머니보다 작으면 안됩니다.', G5_ADMIN_URL.'/?dir=member&amp;pid=system_money_list&amp;'.$qstr);
+if ($po_system_money > 0) {
+    if ($po_content === '환전') {
+        $po_system_money *= -1;
+        if (($po_system_money < 0) && abs($po_system_money) > $mb['mb_system_money']) {
+            alert('회원의 보유머니 잔액이 부족합니다.', G5_ADMIN_URL.'/?dir=member&amp;pid=system_money_list&amp;'.$qstr);
+        }
+    }
+} else {
+    alert('0보다 큰 머니값을 입력하십시오.', G5_ADMIN_URL.'/?dir=member&amp;pid=system_money_list&amp;'.$qstr);
 }
 
 insert_system_money($mb_id, $po_system_money, $po_content, '@passive', $mb_id, $member['mb_id'] . '-' . uniqid(''), $expire);

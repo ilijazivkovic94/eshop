@@ -207,9 +207,20 @@ $g5_page_path = '<li class="breadcrumb-item"><a href="'.correct_goto_url(G5_ADMI
                     <label for="po_content" class="label">머니내용</label>
                 </div>
                 <div class="adm-form-td td-r">
-                    <label class="input">
-                        <input type="text" name="po_content" id="po_content" value="" required>
-                    </label>
+                    <div class="adm-form-tr-wrap height-full align-items-center">
+                        <div class="adm-form-tr tr-l">
+                            <label for="po_content_plus" class="radio width-full">
+                                <input name="po_content" id="po_content_plus" type="radio" value="충전" checked><i></i>
+                                <span class="d-inline-block width-full">충전</span>
+                            </label>
+                        </div>
+                        <div class="adm-form-tr tr-r" style="border: none">
+                            <label for="po_content_minus" class="radio width-full">
+                                <input name="po_content" id="po_content_minus" type="radio" value="환전"><i></i>
+                                <span class="d-inline-block width-full">환전</span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="adm-form-tr tr-r">

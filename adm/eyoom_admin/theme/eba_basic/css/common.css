@@ -187,6 +187,13 @@ a.btn, .btn {width:inherit;height:inherit}
 .width-400px {width:400px !important}
 .width-450px {width:450px !important}
 .width-500px {width:500px !important}
+.width-full {width:100% !important}
+
+/* Flex */
+.align-items-center {align-items: center}
+
+/* Height */
+.height-full {height: 100% !important}
 
 /* Margin */
 .m-0 {margin:0 !important}
