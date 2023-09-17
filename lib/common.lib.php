@@ -1067,7 +1067,7 @@ function insert_point($mb_id, $point, $content='', $rel_table='', $rel_id='', $r
 
     return 1;
 }
-// 포인트 부여
+// 시스템머니 부여
 function insert_system_money($mb_id, $system_money, $content='', $rel_table='', $rel_id='', $rel_action='', $expire=0)
 {
     global $config;
@@ -1132,7 +1132,7 @@ function insert_system_money($mb_id, $system_money, $content='', $rel_table='', 
     sql_query($sql);
 
     // 포인트를 사용한 경우 머니 내역에 사용금액 기록
-    if($point < 0) {
+    if($system_money < 0) {
         insert_use_system_money($mb_id, $point);
     }
 
@@ -1200,7 +1200,7 @@ function insert_use_system_money($mb_id, $point, $po_id='')
                 where mb_id = '$mb_id'
                   and po_id <> '$po_id'
                   and po_expired = '0'
-                  and po_point > po_use_point
+                  and po_money > po_use_money
                 $sql_order ";
     $result = sql_query($sql);
     for($i=0; $row=sql_fetch_array($result); $i++) {
@@ -1209,14 +1209,14 @@ function insert_use_system_money($mb_id, $point, $po_id='')
 
         if(($point2 - $point3) > $point1) {
             $sql = " update g5_system_money
-                        set po_use_point = po_use_point + '$point1'
+                        set po_use_money = po_use_money + '$point1'
                         where po_id = '{$row['po_id']}' ";
             sql_query($sql);
             break;
         } else {
             $point4 = $point2 - $point3;
             $sql = " update g5_system_money
-                        set po_use_point = po_use_point + '$point4',
+                        set po_use_money = po_use_money + '$point4',
                             po_expired = '100'
                         where po_id = '{$row['po_id']}' ";
             sql_query($sql);
@@ -1260,6 +1260,50 @@ function delete_use_point($mb_id, $point)
         } else {
             $sql = " update {$g5['point_table']}
                         set po_use_point = '0',
+                            po_expired = '$po_expired'
+                        where po_id = '{$row['po_id']}' ";
+            sql_query($sql);
+
+            $point1 -= $point2;
+        }
+    }
+}
+
+// 사용시스템머니 삭제
+function delete_use_system_money($mb_id, $point)
+{
+    global $g5, $config;
+
+    if($config['cf_point_term'])
+        $sql_order = " order by po_expire_date desc, po_id desc ";
+    else
+        $sql_order = " order by po_id desc ";
+
+    $point1 = abs($point);
+    $sql = " select po_id, po_use_point, po_expired, po_expire_date
+                from g5_system_money
+                where mb_id = '$mb_id'
+                  and po_expired <> '1'
+                  and po_use_money > 0
+                $sql_order ";
+    $result = sql_query($sql);
+    for($i=0; $row=sql_fetch_array($result); $i++) {
+        $point2 = $row['po_use_money'];
+
+        $po_expired = $row['po_expired'];
+        if($row['po_expired'] == 100 && ($row['po_expire_date'] == '9999-12-31' || $row['po_expire_date'] >= G5_TIME_YMD))
+            $po_expired = 0;
+
+        if($point2 > $point1) {
+            $sql = " update g5_system_money
+                        set po_use_money = po_use_money - '$point1',
+                            po_expired = '$po_expired'
+                        where po_id = '{$row['po_id']}' ";
+            sql_query($sql);
+            break;
+        } else {
+            $sql = " update {$g5['point_table']}
+                        set po_use_money = '0',
                             po_expired = '$po_expired'
                         where po_id = '{$row['po_id']}' ";
             sql_query($sql);
@@ -1438,6 +1482,65 @@ function delete_point($mb_id, $rel_table, $rel_id, $rel_action)
         $result = sql_query($sql);
     }
 
+    return $result;
+}
+
+// 시스템머니 삭제
+function delete_system_money($mb_id, $rel_table, $rel_id, $rel_action)
+{
+    global $g5;
+
+    // 회원아이디가 없다면 업데이트 할 필요 없음
+    if ($mb_id == '') { return 0; }
+    $mb = sql_fetch(" select mb_id, mb_system_money from {$g5['member_table']} where mb_id = '$mb_id' ");
+    if (!$mb['mb_id']) { return 0; }
+
+    $result = false;
+    if ($rel_table || $rel_id || $rel_action)
+    {
+        // 시스템머니 내역정보
+        $sql = " select * from g5_system_money
+                    where mb_id = '$mb_id'
+                      and po_rel_table = '$rel_table'
+                      and po_rel_id = '$rel_id'
+                      and po_rel_action = '$rel_action' ";
+        $row = sql_fetch($sql);
+
+        if(isset($row['po_money']) && $row['po_money'] < 0) {
+            $mb_id = $row['mb_id'];
+            $po_money = abs($row['po_money']);
+
+            delete_use_system_money($mb_id, $po_money);
+        } else {
+            if(isset($row['po_use_money']) && $row['po_use_money'] > 0) {
+                insert_use_system_money($row['mb_id'], $row['po_use_money'], $row['po_id']);
+            }
+        }
+
+        $result = sql_query(" delete from g5_system_money
+                     where mb_id = '$mb_id'
+                       and po_rel_table = '$rel_table'
+                       and po_rel_id = '$rel_id'
+                       and po_rel_action = '$rel_action' ", false);
+
+        // po_mb_money 에 반영
+        if(isset($row['po_money'])) {
+            $sql = " update g5_system_money
+                        set po_mb_money = po_mb_money - '{$row['po_money']}'
+                        where mb_id = '$mb_id'
+                          and po_id > '{$row['po_id']}' ";
+            sql_query($sql);
+        }
+
+        $po_mb_money = $mb['mb_system_money'] - $row['po_money'];
+
+        // 포인트 내역의 합을 구하고
+        // $sum_point = get_point_sum($mb_id);
+
+        // 포인트 UPDATE
+        $sql = " update {$g5['member_table']} set mb_system_money = '$po_mb_money' where mb_id = '$mb_id' ";
+        $result = sql_query($sql);
+    }
     return $result;
 }
 
