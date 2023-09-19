@@ -68,6 +68,12 @@ if (!defined('_EYOOM_')) exit;
 				</div>
 				<?php } ?>
 				<span>E-mail : <a href="mailto:<?php echo $bizinfo['bi_cs_email']; ?>"><?php echo $bizinfo['bi_cs_email']; ?></a></span>
+                <br>
+                <div class="m-t-15">
+                    <a href="https://open.kakao.com/o/sDmot0Hf" target="_blank">
+                        <img src="https://developers.kakao.com/assets/img/about/logos/channel/consult_small_yellow_pc.png" width="85" title="" alt="카카오톡 채널 1:1 채팅 버튼">
+                    </a>
+                </div>
 			</div>
 
 			<div class="footer-copyright">
