@@ -83,7 +83,7 @@ $item_view = 'zoom';
 																			<a href="<?php echo G5_ADMIN_URL; ?>?dir=member&pid=system_money_list">회원충환전</a>
                                     <?php } ?>
                                     <a href="<?php echo G5_SHOP_URL; ?>/orderinquiry.php">주문/배송조회</a>
-                                    <a href="<?php echo G5_SHOP_URL; ?>/couponzone.php">쿠폰존</a>
+                                    <?php /* <a href="<?php echo G5_SHOP_URL; ?>/couponzone.php">쿠폰존</a> */ ?>
                                     <a href="<?php echo G5_SHOP_URL; ?>/personalpay.php">개인결제</a>
                                     <a href="<?php echo G5_SHOP_URL; ?>/itemuselist.php">사용후기</a>
                                     <a href="<?php echo G5_BBS_URL ?>/faq.php">자주묻는 질문</a>
@@ -166,24 +166,14 @@ $item_view = 'zoom';
                                             장바구니
                                         </div>
                                     </a>
-                                    <a href="<?php echo G5_SHOP_URL; ?>/wishlist.php" class="sidebar-member-btn-box">
-                                        <div class="sidebar-member-btn float-end">
-                                            위시리스트
-                                        </div>
-                                    </a>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="m-t-10 m-b-10">
-                                    <a href="<?php echo G5_SHOP_URL; ?>/couponzone.php" class="sidebar-member-btn-box">
-                                        <div class="sidebar-member-btn">
-                                            쿠폰존
-                                        </div>
-                                    </a>
                                     <a href="<?php echo G5_SHOP_URL; ?>/orderinquiry.php" class="sidebar-member-btn-box">
                                         <div class="sidebar-member-btn float-end">
                                             주문/배송조회
                                         </div>
                                     </a>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="m-t-10 m-b-10">
                                     <div class="clearfix"></div>
                                 </div>
                             </div>
