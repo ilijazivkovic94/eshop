@@ -114,9 +114,33 @@ if (!defined('_EYOOM_')) exit;
 <?php /*----- 전체 검색 입력창 끝 -----*/ ?>
 
 <?php /*----- 쇼핑몰 회원 사이드바 시작 -----*/ ?>
-<button type="button" class="sidebar-shop-trigger sidebar-shop-member-btn mo-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasShopRight" aria-controls="offcanvasShopRight"><i class="fas fa-user-alt"></i></button>
+<button type="button" class="111 sidebar-shop-trigger sidebar-shop-member-btn mo-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasShopRight" aria-controls="offcanvasShopRight"><i class="fas fa-user-alt"></i></button>
+<div class="sidebar-shop-consults-wrap for-mo">
+    <div class="m-b-5">
+        <a href="https://open.kakao.com/o/sDmot0Hf" target="_blank">
+            <img src="<?php echo EYOOM_THEME_URL; ?>/image/consult_icon/kakao-talk.png" width="45" class="site-logo" alt="kakao talk icon">
+        </a>
+    </div>
+    <div class="m-b-0">
+        <a href="https://t.me/Arrive_24time" target="_blank">
+            <img src="<?php echo EYOOM_THEME_URL; ?>/image/consult_icon/telegram.png" width="42" class="site-logo" alt="kakao talk icon">
+        </a>
+    </div>
+</div>
 <div class="sidebar-shop-member-wrap">
     <button type="button" class="sidebar-shop-trigger sidebar-shop-member-btn pc-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasShopRight" aria-controls="offcanvasShopRight"><i class="fas fa-user-alt"></i><span class="direction-icon"><i class="fas fa-outdent"></i></span></button>
+    <div class="sidebar-shop-consults-wrap for-pc">
+        <div class="m-b-5">
+            <a href="https://open.kakao.com/o/sDmot0Hf" target="_blank">
+                <img src="<?php echo EYOOM_THEME_URL; ?>/image/consult_icon/kakao-talk.png" width="42" class="site-logo" alt="kakao talk icon">
+            </a>
+        </div>
+        <div class="m-b-0">
+            <a href="https://t.me/Arrive_24time" target="_blank">
+                <img src="<?php echo EYOOM_THEME_URL; ?>/image/consult_icon/telegram.png" width="38" class="site-logo" alt="kakao talk icon">
+            </a>
+        </div>
+    </div>
     <div class="sidebar-shop-member offcanvas offcanvas-end" tabindex="-1" id="offcanvasShopRight" aria-labelledby="offcanvasShopRightLabel">
 		<div class="offcanvas-header">
             <h5 class="offcanvas-title f-s-16r" id="offcanvasShopRightLabel"><i class="fas fa-boxes text-gray"></i> 나의 쇼핑 박스</h5>
