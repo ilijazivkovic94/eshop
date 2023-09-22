@@ -108,7 +108,7 @@ if (!defined('_EYOOM_')) exit;
 <?php /*----- 전체 검색 입력창 끝 -----*/ ?>
 
 <?php /*----- 쇼핑몰 회원 사이드바 시작 -----*/ ?>
-<button type="button" class="111 sidebar-shop-trigger sidebar-shop-member-btn mo-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasShopRight" aria-controls="offcanvasShopRight"><i class="fas fa-user-alt"></i></button>
+<button type="button" class="sidebar-shop-trigger sidebar-shop-member-btn mo-btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasShopRight" aria-controls="offcanvasShopRight"><i class="fas fa-user-alt"></i></button>
 <div class="sidebar-shop-consults-wrap for-mo">
     <div class="m-b-5">
         <a href="https://open.kakao.com/o/sDmot0Hf" target="_blank">

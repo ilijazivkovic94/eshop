@@ -354,80 +354,85 @@ if ($_POST['ct_status'] === '완료') {
 
     // 주문자정보
     $mb = get_member($mb_id);
-    // 주문자의 추천인과 부모추천인 검사 && 시스템머니 적립
-    if ($mb && $mb['mb_recommend']) {
-        $referral_percent = $config['cf_recommend_only_percent'];
-        $parent_referral_percent = $config['cf_pa_recommend_percent'];
 
-        $referral = get_member($mb['mb_recommend']);
-        if ($referral && $referral['mb_recommend']) {
-            $referral_percent = $config['cf_recommend_percent'];
-            // Calculate and update system money for the parent referral (3%)
-            $parent_system_money = ceil($cart_price * $parent_referral_percent / 100);
+    if ($config['cf_use_recommend']) {
+        // 주문자의 추천인과 부모추천인 검사 && 시스템머니 적립
+        if ($mb && $mb['mb_recommend']) {
+            $referral_percent = $config['cf_recommend_only_percent'];
+            $parent_referral_percent = $config['cf_pa_recommend_percent'];
 
-            // delete system money for this order from the parent referral
-            delete_system_money($referral['mb_recommend'], '@shop_order', $od_id, 'add_parent_referral');
+            $referral = get_member($mb['mb_recommend']);
+            if ($referral && $referral['mb_recommend']) {
+                $referral_percent = $config['cf_recommend_percent'];
+                // Calculate and update system money for the parent referral (3%)
+                $parent_system_money = ceil($cart_price * $parent_referral_percent / 100);
 
-            insert_system_money(
-                $referral['mb_recommend'],
-                $parent_system_money,
-                "{$mb_id}: 주문번호 {$od_id} 완료, {$referral['mb_id']}의 추천인",
-                '@shop_order',
-                $od_id,
-                'add_parent_referral'
-            );
-        }
-
-        $referral_system_money = ceil($cart_price * $referral_percent / 100);
-        // delete system money for this order from the referral
-        delete_system_money($referral['mb_id'], '@shop_order', $od_id, 'add_referral');
-        // Insert system money history of referral
-        insert_system_money(
-            $referral['mb_id'],
-            $referral_system_money,
-            "{$mb_id}: 주문번호 {$od_id} 완료, 추천인",
-            '@shop_order',
-            $od_id,
-            'add_referral'
-        );
-    }
-
-    // Check if the member has a friend
-    $friend_sql = "SELECT * FROM g5_friends WHERE mb_id = '{$mb_id}'";
-    $friend_result = sql_query($friend_sql);
-    $friend = sql_fetch_array($friend_result);
-
-    if ($friend) {
-        // delete system money for this order from the friend
-        delete_system_money($friend['parent_mb_id'], '@shop_order', $od_id, 'add_friend');
-        // Insert system money history of referral
-        insert_system_money(
-            $friend['parent_mb_id'],
-            ceil($cart_price * $friend['percentage'] / 100),
-            "{$mb_id}: 주문번호 {$od_id} 완료, 친구",
-            '@shop_order',
-            $od_id,
-            'add_friend'
-        );
-
-        if ($friend['parent_mb_id']) {
-            // Check if the parent friend has a parent
-            $parentFriendSql = "SELECT * FROM g5_friends WHERE mb_id = '{$friend['parent_mb_id']}'";
-            $parentFriendResult = sql_query($parentFriendSql);
-            $parentFriend = sql_fetch_array($parentFriendResult);
-            // Update system money for the parent friend
-            if ($parentFriend) {
-                // delete system money for this order from the friend
-                delete_system_money($parentFriend['parent_mb_id'], '@shop_order', $od_id, 'add_parent_friend');
+                // delete system money for this order from the parent referral
+                delete_system_money($referral['mb_recommend'], '@shop_order', $od_id, 'add_parent_referral');
 
                 insert_system_money(
-                    $parentFriend['parent_mb_id'],
-                    ceil($cart_price * $parentFriend['percentage'] / 100),
-                    "{$mb_id}: 주문번호 {$od_id} 완료, {$friend['parent_mb_id']}의 친구",
+                    $referral['mb_recommend'],
+                    $parent_system_money,
+                    "{$mb_id}: 주문번호 {$od_id} 완료, {$referral['mb_id']}의 추천인",
                     '@shop_order',
                     $od_id,
-                    'add_parent_friend'
+                    'add_parent_referral'
                 );
+            }
+
+            $referral_system_money = ceil($cart_price * $referral_percent / 100);
+            // delete system money for this order from the referral
+            delete_system_money($referral['mb_id'], '@shop_order', $od_id, 'add_referral');
+            // Insert system money history of referral
+            insert_system_money(
+                $referral['mb_id'],
+                $referral_system_money,
+                "{$mb_id}: 주문번호 {$od_id} 완료, 추천인",
+                '@shop_order',
+                $od_id,
+                'add_referral'
+            );
+        }
+    }
+
+    if ($config['cf_use_friend']) {
+        // Check if the member has a friend
+        $friend_sql = "SELECT * FROM g5_friends WHERE mb_id = '{$mb_id}'";
+        $friend_result = sql_query($friend_sql);
+        $friend = sql_fetch_array($friend_result);
+
+        if ($friend) {
+            // delete system money for this order from the friend
+            delete_system_money($friend['parent_mb_id'], '@shop_order', $od_id, 'add_friend');
+            // Insert system money history of referral
+            insert_system_money(
+                $friend['parent_mb_id'],
+                ceil($cart_price * $friend['percentage'] / 100),
+                "{$mb_id}: 주문번호 {$od_id} 완료, 친구",
+                '@shop_order',
+                $od_id,
+                'add_friend'
+            );
+
+            if ($friend['parent_mb_id']) {
+                // Check if the parent friend has a parent
+                $parentFriendSql = "SELECT * FROM g5_friends WHERE mb_id = '{$friend['parent_mb_id']}'";
+                $parentFriendResult = sql_query($parentFriendSql);
+                $parentFriend = sql_fetch_array($parentFriendResult);
+                // Update system money for the parent friend
+                if ($parentFriend) {
+                    // delete system money for this order from the friend
+                    delete_system_money($parentFriend['parent_mb_id'], '@shop_order', $od_id, 'add_parent_friend');
+
+                    insert_system_money(
+                        $parentFriend['parent_mb_id'],
+                        ceil($cart_price * $parentFriend['percentage'] / 100),
+                        "{$mb_id}: 주문번호 {$od_id} 완료, {$friend['parent_mb_id']}의 친구",
+                        '@shop_order',
+                        $od_id,
+                        'add_parent_friend'
+                    );
+                }
             }
         }
     }
