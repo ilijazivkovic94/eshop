@@ -112,12 +112,12 @@ if (!defined('_EYOOM_')) exit;
 <div class="sidebar-shop-consults-wrap for-mo">
     <div class="m-b-5">
         <a href="https://open.kakao.com/o/sDmot0Hf" target="_blank">
-            <img src="<?php echo EYOOM_THEME_URL; ?>/image/consult_icon/kakao-talk.png" width="45" class="site-logo" alt="kakao talk icon">
+            <img src="<?php echo EYOOM_THEME_URL; ?>/image/consult_icon/kakao-talk.png" width="45" class="site-logo" alt="카톡 문의">
         </a>
     </div>
     <div class="m-b-0">
         <a href="https://t.me/Arrive_24time" target="_blank">
-            <img src="<?php echo EYOOM_THEME_URL; ?>/image/consult_icon/telegram.png" width="42" class="site-logo" alt="kakao talk icon">
+            <img src="<?php echo EYOOM_THEME_URL; ?>/image/consult_icon/telegram.png" width="42" class="site-logo" alt="텔레그람 문의">
         </a>
     </div>
 </div>
@@ -126,12 +126,12 @@ if (!defined('_EYOOM_')) exit;
     <div class="sidebar-shop-consults-wrap for-pc">
         <div class="m-b-5">
             <a href="https://open.kakao.com/o/sDmot0Hf" target="_blank">
-                <img src="<?php echo EYOOM_THEME_URL; ?>/image/consult_icon/kakao-talk.png" width="42" class="site-logo" alt="kakao talk icon">
+                <img src="<?php echo EYOOM_THEME_URL; ?>/image/consult_icon/kakao-talk.png" width="42" class="site-logo" alt="카톡 문의">
             </a>
         </div>
         <div class="m-b-0">
             <a href="https://t.me/Arrive_24time" target="_blank">
-                <img src="<?php echo EYOOM_THEME_URL; ?>/image/consult_icon/telegram.png" width="38" class="site-logo" alt="kakao talk icon">
+                <img src="<?php echo EYOOM_THEME_URL; ?>/image/consult_icon/telegram.png" width="38" class="site-logo" alt="텔레그람 문의">
             </a>
         </div>
     </div>
