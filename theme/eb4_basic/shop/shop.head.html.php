@@ -46,7 +46,6 @@ $item_view = 'zoom';
                             <li class="cs-nav c-nav"><a href="<?php echo G5_URL; ?>"><span class="deactivate">커뮤니티</span></a></li>
                             <?php } ?>
                             <li class="cs-nav s-nav"><a href="<?php echo G5_SHOP_URL; ?>" class="disabled"><span class="activate">쇼핑몰</span></a></li>
-                            <li><a href="<?php echo G5_SHOP_URL; ?>/couponzone.php"><i class="fas fa-ticket-alt"></i>쿠폰존</a></li>
                             <?php if ($is_admin) { // 관리자일 경우 ?>
                             <li>
                                 <div class="eyoom-form">
