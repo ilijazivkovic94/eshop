@@ -23,10 +23,13 @@ if (!defined('_EYOOM_')) exit;
 					<a href="<?php echo get_eyoom_pretty_url('page','provision'); ?>">서비스이용약관</a>
 					<a href="<?php echo get_eyoom_pretty_url('page','privacy'); ?>">개인정보처리방침</a>
 					<a href="<?php echo get_eyoom_pretty_url('page','noemail'); ?>">이메일무단수집거부</a>
+                    <a href="<?php echo G5_BBS_URL; ?>/faq.php">FAQ</a>
+                    <a href="<?php echo G5_BBS_URL; ?>/qalist.php">1:1문의</a>
 				</div>
 				<div class="footer-right-nav">
-					<a href="<?php echo G5_BBS_URL; ?>/faq.php">FAQ</a>
-					<a href="<?php echo G5_BBS_URL; ?>/qalist.php">1:1문의</a>
+                    <a class="btn-e btn-e-crimson m-b-5" href="https://m.customs.go.kr/pms/html/mos/extr/MOS0101053S.do" target="_blank">개인통관부호 모바일</a>
+                    <a class="btn-e btn-light-green m-b-5" href="https://m.customs.go.kr/pms/html/mos/extr/MOS0101053S.do" target="_blank">개인통관부호 PC</a>
+                    <a class="btn-e btn-cyan m-b-5" href="https://www.shiptrack.co.kr" target="_blank">배송조회</a>
 				</div>
 			</div>
 
